@@ -12,7 +12,7 @@ INSERT INTO FuelType (fuelname)
 VALUES ('Diesel'), ('Gasoline'), ('Biodiesel'), ('Hybrid'), ('Electric');      
        
 INSERT INTO EngineMotor (modelname, price, fuel_id, manufacturer_id)
-VALUES ('BMW', 4500, 1, 1);     
+VALUES ('BMW', 4500, 1, 1);
        
 INSERT INTO BodyType (bodytypename, price, manufacturer_id)
 VALUES ('Porsche Cayenne',11000, 20), ('Chevrolet Camaro', 19000, 21), ('Nissan 370Z', 5000, 24), ('Nissan Skyline', 33000, 24), 
@@ -36,6 +36,6 @@ VALUES ('Racing Ultraleggera', 860, '20 inches', 9), ('Torq Thrust', 860, '18 in
 INSERT INTO Windows (windowname, price, manufacturer_id)
 VALUES ('Normal Laminated Glass',5000, 4), ('Tinted Laminated Glass', 9000, 11), ('Tinted Tempered Glass', 5000, 7), ('Tinted Bulletproof Glass', 10000, 8), 
 	   ('Normal Bulletproof Glass', 9000, 20);
-       
+       BodyTypebody_id
 insert into Orders (total, bodytype_id, window_id, wheel_id, color_id, engine_id, orderdate, trackingnumber) 
 values (4500.00, 3, 1, 4, 1, 1, '2020-7-04', 4545451);
