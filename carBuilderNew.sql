@@ -64,7 +64,7 @@ create table orders(
 );
 
 create table orderItems(
-	s_id int primary key auto_increment,
+	oi_id int primary key auto_increment,
     order_fk int,
     product_fk int,
     CONSTRAINT FOREIGN KEY (order_fk) REFERENCES orders(o_id),
