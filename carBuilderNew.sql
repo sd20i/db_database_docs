@@ -1,16 +1,17 @@
-drop database carBuilder;
+drop database if exists carBuilder;
 create database carBuilder;
 use carBuilder;
 
-drop table if exists customers;
+
 drop table if exists manufacturers;
 drop table if exists productType;
 drop table if exists products;
 drop table if exists stock;
 drop table if exists orders; 
 drop table if exists orderItems;
+drop table if exists customers;
 
-
+use carBuilder;
 create table customers(
 	c_id int primary key auto_increment,
     c_name varchar(40) not null,
@@ -57,7 +58,7 @@ create table stock(
 
 create table orders(
 	o_id int primary key auto_increment,
-    o_tracking_number varchar(30),
+    o_tracking_number varchar(250),
     o_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     customer_fk int,
     CONSTRAINT FOREIGN KEY (customer_fk) REFERENCES customers(c_id)
@@ -90,19 +91,22 @@ insert into manufacturers (m_name, m_country) values
 -- productType
 insert into productType (pt_name) values 
 ('Car body'),
-('Tires'),
-('Wheels'),
 ('Engine'),
+('Tires'),
 ('Spoiler'),
 ('Windows'),
 ('Color');
 
 -- products
 insert into products (p_model_name, p_price, p_description, product_type_fk, manufacturer_fk) values 
+('super tires', 203.49, 'bla', 3, 3),
+('winter tires', 203.49, 'bla', 3, 3),
+('Big tire', 23.49, 'bla', 3, 1),
 ('Sedan', 23.49, 'some description of this product', 1, 4),
 ('SUV', 200.38, 'suv description', 1, 3),
 ('Compact', 2032.28, 'compact car', 1, 3),
 ('Wagon', 19999.00, 'wagon text', 1, 1),
+('V8', 3273.99, 'brian type of engine', 4, 2),
 ('Van', 123483.00, 'creapy white van', 1, 5),
 ('Pickup', 2283.00, 'car for picking up girls', 1, 5),
 ('Sport', 2273.99, 'midlife crises car type', 1, 3);
