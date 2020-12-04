@@ -33,6 +33,7 @@ CREATE TABLE `customers` (
   `c_zip` varchar(4) NOT NULL,
   `c_city` varchar(50) NOT NULL,
   `c_country` varchar(50) NOT NULL,
+  `c_fb_id` varchar(50) NOT NULL,
   PRIMARY KEY (`c_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -43,7 +44,7 @@ CREATE TABLE `customers` (
 
 LOCK TABLES `customers` WRITE;
 /*!40000 ALTER TABLE `customers` DISABLE KEYS */;
-INSERT INTO `customers` VALUES (1,'John Doe','0045 239482712','john@email.com',23,3,'Strandvejen','2309','København','Denmark'),(2,'Lotte hansen','0045 993237482','lotte@hotmail.com',10,NULL,'valbylanggade','3302','København','Denmark'),(3,'Hanne hansen','0045 82736438','ha@hansen.com',1,19,'frederkisborgs vej','2200','København','Denmark');
+INSERT INTO `customers` VALUES (1,'John Doe','0045 239482712','john@email.com',23,3,'Strandvejen','2309','København','Denmark', '51sOp8ua4JZdyp3xCQDy3EhWHWl1'),(2,'Lotte hansen','0045 993237482','lotte@hotmail.com',10,NULL,'valbylanggade','3302','København','Denmark', '8HBFh10dVDSAz0Ud6Ppupbslhxo2'),(3,'Hanne hansen','0045 82736438','ha@hansen.com',1,19,'frederkisborgs vej','2200','København','Denmark', 'o38KangI2FNPKG8Sj4ki4eW8jsv1');
 /*!40000 ALTER TABLE `customers` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
