@@ -32,7 +32,6 @@ CREATE TABLE `customers` (
   `c_number` int(3) NOT NULL,
   `c_floor` int(3) DEFAULT NULL,
   `c_street` varchar(100) NOT NULL,
-  `c_zip` varchar(4) NOT NULL,
   `c_city` varchar(50) NOT NULL,
   `c_country` varchar(50) NOT NULL,
   PRIMARY KEY (`c_id`)
