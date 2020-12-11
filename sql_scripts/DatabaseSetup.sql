@@ -228,3 +228,16 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2020-11-19 11:23:43
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS Update_product_default_image;
+Create Procedure Update_product_default_image()
+	
+   BEGIN
+   SET sql_safe_updates=0;
+   UPDATE products
+   SET
+   image = "placeholder.png" where image is null;
+   SET sql_safe_updates=1;
+   END;
+   //
