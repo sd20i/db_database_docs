@@ -241,3 +241,14 @@ Create Procedure Update_product_default_image()
    SET sql_safe_updates=1;
    END;
    //
+   
+   DELIMITER //
+DROP PROCEDURE IF EXISTS ReturnAllEmails;
+Create Procedure ReturnAllEmails()
+   BEGIN
+   SELECT GROUP_CONCAT(c_email SEPARATOR ',') 
+   FROM carbuilder.customers
+   GROUP BY NULL;
+	
+   END;
+   //
