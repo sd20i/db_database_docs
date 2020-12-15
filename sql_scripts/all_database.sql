@@ -4,14 +4,14 @@ USE carbuilder;
 CREATE TABLE customers (
   c_id      int(11) NOT NULL AUTO_INCREMENT, 
   c_name    varchar(40) NOT NULL, 
-  c_phone   varchar(15) NOT NULL, 
+  c_phone   varchar(15), 
   c_email   varchar(150) NOT NULL, 
-  c_number  int(3) NOT NULL, 
+  c_number  int(3), 
   c_floor   int(3), 
-  c_street  varchar(100) NOT NULL, 
-  c_zip     varchar(4) NOT NULL, 
-  c_city    varchar(50) NOT NULL, 
-  c_country varchar(50) NOT NULL, 
+  c_street  varchar(100), 
+  c_zip     varchar(4), 
+  c_city    varchar(50), 
+  c_country varchar(50), 
   c_fb_id   varchar(50) NOT NULL, 
   PRIMARY KEY (c_id)) AUTO_INCREMENT = 4 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 CREATE TABLE manufacturers (
