@@ -70,6 +70,17 @@ CREATE TABLE CreditCards (
     PRIMARY KEY (c_id, dml_type, dml_timestamp)
 );
 
+CREATE TABLE invoices (
+    invoice_id int(11) NOT NULL AUTO_INCREMENT,
+    invoice_date date NOT NULL,
+    tax double(9,2) NOT NULL,
+    total_price double NOT NULL,
+    credit_card_fk int(11) NOT NULL,
+    order_fk int(11) NOT NULL,
+    customer_fk int(11) NOT NULL,
+    PRIMARY KEY (invoice_id) 
+)  DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+
 CREATE INDEX order_fk 
   ON orderItems (order_fk);
 CREATE INDEX product_fk 
@@ -89,6 +100,9 @@ ALTER TABLE products ADD CONSTRAINT products_ibfk_1 FOREIGN KEY (product_type_fk
 ALTER TABLE products ADD CONSTRAINT products_ibfk_2 FOREIGN KEY (manufacturer_fk) REFERENCES manufacturers (m_id);
 ALTER TABLE stock ADD CONSTRAINT stock_ibfk_1 FOREIGN KEY (product_fk) REFERENCES products (p_id);
 ALTER TABLE CreditCards ADD CONSTRAINT FKCreditCard102749 FOREIGN KEY (customersc_id) REFERENCES customers (c_id);
+ALTER TABLE invoices ADD CONSTRAINT invoices_ibfk_1 FOREIGN KEY (credit_card_fk) REFERENCES creditcards (cc_cridt_card_id);
+ALTER TABLE invoices ADD CONSTRAINT invoices_ibfk_2 FOREIGN KEY (order_fk) REFERENCES orders (o_id);
+ALTER TABLE invoices ADD CONSTRAINT invoices_ibfk_3 FOREIGN KEY (customer_fk) REFERENCES customers (c_id);
 
 
 INSERT INTO `customers` VALUES (1,'John Doe','0045 239482712','john@email.com',23,3,'Strandvejen','2309','København','Denmark', '51sOp8ua4JZdyp3xCQDy3EhWHWl1'),(2,'Lotte hansen','0045 993237482','lotte@hotmail.com',10,NULL,'valbylanggade','3302','København','Denmark', '8HBFh10dVDSAz0Ud6Ppupbslhxo2'),(3,'Hanne hansen','0045 82736438','ha@hansen.com',1,19,'frederkisborgs vej','2200','København','Denmark', 'o38KangI2FNPKG8Sj4ki4eW8jsv1');
@@ -118,6 +132,36 @@ Create Procedure ReturnAllEmails()
    FROM customers
    GROUP BY NULL;
 	
+   END;
+   //
+   
+   Create Procedure SP_NEW_ORDER(IN customer_fk INT)
+   BEGIN
+   INSERT INTO orders (o_tracking_number, createdAt, customer_fk) VALUES (uuid(), now(), customer_fk);
+   END;
+   //
+   
+   Create Procedure SP_NEW_ORDERITEM(IN product_fk INT, IN order_fk INT)
+   BEGIN
+   INSERT INTO orderitems(order_fk, product_fk) VALUES (order_fk, product_fk);
+   END;
+   //
+   
+Create Procedure return_total_order_price(IN orderId int)
+   BEGIN
+   SELECT sum(p.p_price) as total_price
+   FROM products p
+   WHERE p.p_id IN (SELECT product_fk
+				   FROM orderitems oi
+				   WHERE order_fk = orderId);
+                   
+   END;
+   //
+
+Create Procedure SP_NEW_INVOICE(IN totalPrice double, IN creditCardId int, IN orderId int, IN customerId int)
+   BEGIN
+   INSERT INTO invoices (invoice_date, tax, total_price, credit_card_fk, order_fk, customer_fk) 
+   VALUES (now(), totalPrice * 0.25, totalPrice, creditCardId, orderId, customerId);
    END;
    //
    
@@ -236,6 +280,16 @@ IF OLD.cc_last_used_date IS NOT NULL THEN CALL cannot_delete_error;
 END IF;
 END;
 
+//
+
+CREATE VIEW v_money_thisyear as 
+SELECT sum(p.p_price) as money_made_thisyear
+FROM orders as o 
+LEFT JOIN orderitems as oi
+ON o.o_id = oi.order_fk
+LEFT JOIN products as p
+ON p.p_id = oi.product_fk
+WHERE year(o.createdAt) = year(now()) ;
 //
 DELIMITER //
 
