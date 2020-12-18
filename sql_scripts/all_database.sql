@@ -291,6 +291,21 @@ LEFT JOIN products as p
 ON p.p_id = oi.product_fk
 WHERE year(o.createdAt) = year(now()) ;
 //
+
+
+CREATE PROCEDURE `getPurchasedProducts`()
+BEGIN
+select distinct product_fk from orderitems;
+END
+//
+
+CREATE PROCEDURE `deleteProduct`(IN productId int)
+BEGIN
+DELETE FROM stock where product_fk = productId;
+DELETE FROM products where p_id = productId;
+END
+
+//
 DELIMITER //
 
 
